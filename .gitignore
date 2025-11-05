@@ -1,0 +1,87 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# PyTorch
+*.pth
+*.pt
+*.ckpt
+
+# Results (keep structure but ignore large files)
+experiments/results/*/pso/*/best_model.pth
+experiments/results/*/random_search/*/best_model.pth
+experiments/results/*/bayesian/*/best_model.pth
+
+# Data (keep structure, ignore downloaded data)
+experiments/data/*/raw/*
+!experiments/data/*/raw/.gitkeep
+data/*/raw/*
+!data/*/raw/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Environment variables
+.env
+.env.local
+
+# Large result files (optional - uncomment if you want to ignore all results)
+# experiments/results/
+
+# Keep important results structure
+!experiments/results/*/summary.json
+!experiments/results/*/config.yaml
+!experiments/results/*/optimization_history.json
+!experiments/results/*/training_history.json
+!experiments/results/*/statistical_analysis/
+!experiments/results/*/publication_plots/
+!experiments/results/*/results_table.tex
+

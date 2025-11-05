@@ -1,0 +1,191 @@
+{
+  "config": {
+    "experiment": {
+      "n_runs": 3,
+      "device": "cuda",
+      "results_dir": "./results",
+      "base_seed": 42,
+      "num_workers": 4,
+      "save_models": true,
+      "save_plots": true
+    },
+    "optimizers": {
+      "random_search": {
+        "enabled": true,
+        "n_iterations": 25
+      },
+      "pso": {
+        "enabled": true,
+        "n_iterations": 10,
+        "population_size": 10,
+        "w": 0.7,
+        "c1": 1.5,
+        "c2": 1.5
+      },
+      "bayesian": {
+        "enabled": false,
+        "n_iterations": 50,
+        "n_initial": 10,
+        "xi": 0.01
+      }
+    },
+    "training": {
+      "max_epochs": 200,
+      "early_stopping_patience": 100,
+      "optimizer_type": "adam"
+    },
+    "pso_training": {
+      "max_epochs": 50,
+      "early_stopping_patience": 30
+    },
+    "retraining": {
+      "max_epochs": 15000,
+      "early_stopping_patience": 50
+    },
+    "dataset": {
+      "name": "MNIST",
+      "data_dir": "./data",
+      "val_split": 0.1,
+      "test_split": 0.1
+    },
+    "model": {
+      "type": "MLP",
+      "use_batchnorm": true,
+      "conv_channels": [
+        32,
+        64
+      ],
+      "fc_hidden": 128
+    },
+    "search_space": {
+      "learning_rate": {
+        "type": "float",
+        "min": 0.0001,
+        "max": 0.01,
+        "scale": "log"
+      },
+      "batch_size": {
+        "type": "int",
+        "min": 32,
+        "max": 256,
+        "scale": "log"
+      },
+      "hidden_size": {
+        "type": "int",
+        "min": 64,
+        "max": 512,
+        "scale": "linear"
+      },
+      "num_layers": {
+        "type": "int",
+        "min": 1,
+        "max": 3,
+        "scale": "linear"
+      },
+      "dropout": {
+        "type": "float",
+        "min": 0.1,
+        "max": 0.5,
+        "scale": "linear"
+      },
+      "weight_decay": {
+        "type": "float",
+        "min": 1e-05,
+        "max": 0.001,
+        "scale": "log"
+      }
+    }
+  },
+  "results": [
+    {
+      "optimizer": "random_search",
+      "seed": 42,
+      "best_params": {
+        "learning_rate": 0.0005611516415334506,
+        "batch_size": 231,
+        "hidden_size": 392,
+        "num_layers": 2,
+        "dropout": 0.1624074561769746,
+        "weight_decay": 2.0511104188433963e-05
+      },
+      "best_val_acc": 99.11666666666666,
+      "final_test_acc": 98.75,
+      "training_time": 803.9809365272522
+    },
+    {
+      "optimizer": "random_search",
+      "seed": 43,
+      "best_params": {
+        "learning_rate": 0.00039987928942942635,
+        "batch_size": 53,
+        "hidden_size": 479,
+        "num_layers": 3,
+        "dropout": 0.3733107039899948,
+        "weight_decay": 0.0001360721725943998
+      },
+      "best_val_acc": 98.96666666666667,
+      "final_test_acc": 98.68333333333334,
+      "training_time": 1009.3445830345154
+    },
+    {
+      "optimizer": "random_search",
+      "seed": 44,
+      "best_params": {
+        "learning_rate": 0.00039987928942942635,
+        "batch_size": 53,
+        "hidden_size": 479,
+        "num_layers": 3,
+        "dropout": 0.3733107039899948,
+        "weight_decay": 0.0001360721725943998
+      },
+      "best_val_acc": 99.03333333333333,
+      "final_test_acc": 98.6,
+      "training_time": 963.2153069972992
+    },
+    {
+      "optimizer": "pso",
+      "seed": 42,
+      "best_params": {
+        "learning_rate": 0.00022015402752084665,
+        "batch_size": 64,
+        "hidden_size": 512,
+        "num_layers": 3,
+        "dropout": 0.1902332702689478,
+        "weight_decay": 0.00012326581892379396
+      },
+      "best_val_acc": 98.7,
+      "final_test_acc": 98.96666666666667,
+      "training_time": 1236.8556687831879
+    },
+    {
+      "optimizer": "pso",
+      "seed": 43,
+      "best_params": {
+        "learning_rate": 0.00299353851523479,
+        "batch_size": 256,
+        "hidden_size": 512,
+        "num_layers": 2,
+        "dropout": 0.1101289113365556,
+        "weight_decay": 6.351176313709247e-05
+      },
+      "best_val_acc": 98.96666666666667,
+      "final_test_acc": 99.06666666666666,
+      "training_time": 814.0602395534515
+    },
+    {
+      "optimizer": "pso",
+      "seed": 44,
+      "best_params": {
+        "learning_rate": 0.0009774061302096787,
+        "batch_size": 65,
+        "hidden_size": 454,
+        "num_layers": 3,
+        "dropout": 0.1,
+        "weight_decay": 1.0360766704314309e-05
+      },
+      "best_val_acc": 99.1,
+      "final_test_acc": 99.1,
+      "training_time": 1103.3005301952362
+    }
+  ]
+}

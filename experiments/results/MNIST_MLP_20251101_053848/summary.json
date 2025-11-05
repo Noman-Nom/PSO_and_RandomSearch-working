@@ -1,0 +1,87 @@
+{
+  "config": {
+    "experiment": {
+      "n_runs": 1,
+      "device": "cpu",
+      "results_dir": "./results",
+      "base_seed": 42,
+      "num_workers": 4,
+      "save_models": true
+    },
+    "optimizers": {
+      "random_search": {
+        "enabled": true,
+        "n_iterations": 5
+      },
+      "pso": {
+        "enabled": false
+      },
+      "bayesian": {
+        "enabled": false
+      }
+    },
+    "training": {
+      "max_epochs": 5,
+      "early_stopping_patience": 10,
+      "optimizer_type": "adam"
+    },
+    "retraining": {
+      "max_epochs": 100,
+      "early_stopping_patience": 20
+    },
+    "dataset": {
+      "name": "MNIST",
+      "data_dir": "./data",
+      "val_split": 0.1,
+      "test_split": 0.1
+    },
+    "model": {
+      "type": "MLP",
+      "use_batchnorm": true,
+      "conv_channels": [
+        32,
+        64
+      ],
+      "fc_hidden": 128
+    },
+    "search_space": {
+      "learning_rate": {
+        "type": "float",
+        "min": 0.0001,
+        "max": 0.01,
+        "scale": "log"
+      },
+      "batch_size": {
+        "type": "int",
+        "min": 32,
+        "max": 256,
+        "scale": "log"
+      },
+      "hidden_size": {
+        "type": "int",
+        "min": 64,
+        "max": 512,
+        "scale": "linear"
+      },
+      "num_layers": {
+        "type": "int",
+        "min": 1,
+        "max": 3,
+        "scale": "linear"
+      },
+      "dropout": {
+        "type": "float",
+        "min": 0.1,
+        "max": 0.5,
+        "scale": "linear"
+      },
+      "weight_decay": {
+        "type": "float",
+        "min": 1e-05,
+        "max": 0.001,
+        "scale": "log"
+      }
+    }
+  },
+  "results": []
+}

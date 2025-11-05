@@ -1,0 +1,100 @@
+{
+  "config": {
+    "experiment": {
+      "n_runs": 3,
+      "device": "cpu",
+      "results_dir": "./results",
+      "base_seed": 42,
+      "num_workers": 4,
+      "save_models": true,
+      "save_plots": true
+    },
+    "optimizers": {
+      "random_search": {
+        "enabled": true,
+        "n_iterations": 25
+      },
+      "pso": {
+        "enabled": true,
+        "n_iterations": 10,
+        "population_size": 10,
+        "w": 0.7,
+        "c1": 1.5,
+        "c2": 1.5
+      },
+      "bayesian": {
+        "enabled": false,
+        "n_iterations": 50,
+        "n_initial": 10,
+        "xi": 0.01
+      }
+    },
+    "training": {
+      "max_epochs": 200,
+      "early_stopping_patience": 20,
+      "optimizer_type": "adam"
+    },
+    "pso_training": {
+      "max_epochs": 50,
+      "early_stopping_patience": 10
+    },
+    "retraining": {
+      "max_epochs": 15000,
+      "early_stopping_patience": 50
+    },
+    "dataset": {
+      "name": "MNIST",
+      "data_dir": "./data",
+      "val_split": 0.1,
+      "test_split": 0.1
+    },
+    "model": {
+      "type": "MLP",
+      "use_batchnorm": true,
+      "conv_channels": [
+        32,
+        64
+      ],
+      "fc_hidden": 128
+    },
+    "search_space": {
+      "learning_rate": {
+        "type": "float",
+        "min": 0.0001,
+        "max": 0.01,
+        "scale": "log"
+      },
+      "batch_size": {
+        "type": "int",
+        "min": 32,
+        "max": 256,
+        "scale": "log"
+      },
+      "hidden_size": {
+        "type": "int",
+        "min": 64,
+        "max": 512,
+        "scale": "linear"
+      },
+      "num_layers": {
+        "type": "int",
+        "min": 1,
+        "max": 3,
+        "scale": "linear"
+      },
+      "dropout": {
+        "type": "float",
+        "min": 0.1,
+        "max": 0.5,
+        "scale": "linear"
+      },
+      "weight_decay": {
+        "type": "float",
+        "min": 1e-05,
+        "max": 0.001,
+        "scale": "log"
+      }
+    }
+  },
+  "results": []
+}

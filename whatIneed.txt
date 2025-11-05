@@ -1,0 +1,87 @@
+Hi! I’m conducting a research project focused on neural network hyperparameter optimization using global optimization algorithms — particularly Particle Swarm Optimization (PSO) and Random Search. My aim is to build a rigorous, comparative framework for tuning neural networks and evaluating performance under a clearly defined exploration–exploitation baseline.
+
+✅ My Baseline (Defined by Supervisor):
+
+Goal:
+Evaluate global optimization strategies under a fixed compute budget using a two-phase training pipeline:
+
+Phase	Description	Epochs
+Exploration	Run optimization (e.g. PSO, Random Search) to select best hyperparameters	5,000 epochs
+Exploitation	Retrain best config from exploration phase for max performance	15,000–20,000 epochs
+✅ What I’ve Already Done:
+
+1. Dataset Used (So Far):
+
+Reduced MNIST (3 classes, PCA-reduced to 20 features)
+
+This was used to quickly validate optimization pipelines
+
+2. PSO Implementation:
+
+10 iterations, each candidate trained for 3 epochs (approx. 5000 total epochs)
+
+Best configuration found: lr=0.0020, hidden=256, batch=256
+
+Retrained best config for 20,000 epochs (Baseline)
+
+Saved checkpoints, convergence graphs
+
+3. Random Search:
+
+25 trials (200 epochs each = ~5000 exploration budget)
+
+Best config found: lr=0.0044, hidden=117, batch=32
+
+Retrained best config for 15,000 epochs
+
+Also plotted and saved all results
+
+4. Visualizations + Code Quality:
+
+.pth model checkpoints
+
+PNG plots of accuracy/loss over time
+
+Final markdown table comparing PSO vs Random Search
+
+README.md, .gitignore, reproducible structure, torch and matplotlib usage
+
+🧪 Current Problem:
+
+Despite perfect training accuracy (100%), the test accuracy is only ~31%
+
+This indicates severe overfitting due to a tiny or overly simple dataset
+
+Also, current MLP is too shallow — not ideal for fair benchmarking
+
+🔄 My Updated Goal:
+
+To advance this research to a high-quality publication level, I now want to:
+
+🧠 Use Better Dataset:
+
+Move to full MNIST or FashionMNIST
+
+Possibly also try CIFAR-10 for visual generalization
+
+🔧 Improve Model Architecture:
+
+Replace MLP with a better MLP (dropout, batchnorm, more layers)
+
+Or use a compact CNN (Conv + Pool + FC)
+
+⚙️ Optimize Using Same Baseline:
+
+Re-implement both PSO and Random Search
+
+Use the same 5k exploration + 15k exploitation structure
+
+Save all intermediate checkpoints and metrics
+
+📊 Compare and Report:
+
+Train/test/val splits with performance summaries
+
+Plot all loss/accuracy curves
+
+Tables for accuracy per method: Baseline vs Random vs PSO (vs BO if added)

@@ -1,0 +1,201 @@
+# # Hyperparameter Optimization Experiment Configuration
+
+# # Dataset settings
+# dataset:
+#   name: "MNIST"  # Options: MNIST, FashionMNIST, CIFAR10
+#   data_dir: "./data"
+#   val_split: 0.1
+#   test_split: 0.1
+
+# # Model settings
+# model:
+#   type: "MLP"  # Options: MLP, CNN
+#   # MLP specific
+#   use_batchnorm: true
+#   # CNN specific (if type=CNN)
+#   conv_channels: [32, 64]
+#   fc_hidden: 128
+
+# # Search space for hyperparameters
+# search_space:
+#   learning_rate:
+#     type: "float"
+#     min: 0.0001
+#     max: 0.01
+#     scale: "log"
+  
+#   batch_size:
+#     type: "int"
+#     min: 32
+#     max: 256
+#     scale: "log"
+  
+#   hidden_size:  # For MLP: hidden layer size; For CNN: not used
+#     type: "int"
+#     min: 64
+#     max: 512
+#     scale: "linear"
+  
+#   num_layers:  # Number of hidden layers (MLP only)
+#     type: "int"
+#     min: 1
+#     max: 3
+#     scale: "linear"
+  
+#   dropout:
+#     type: "float"
+#     min: 0.1
+#     max: 0.5
+#     scale: "linear"
+  
+#   weight_decay:
+#     type: "float"
+#     min: 0.00001
+#     max: 0.001
+#     scale: "log"
+
+# # Optimization algorithms
+# optimizers:
+#   random_search:
+#     enabled: true
+#     n_iterations: 50
+  
+#   pso:
+#     enabled: true
+#     n_iterations: 20  # Total iterations
+#     population_size: 10  # Particles per iteration
+#     w: 0.7  # Inertia
+#     c1: 1.5  # Cognitive parameter
+#     c2: 1.5  # Social parameter
+  
+#   bayesian:
+#     enabled: true
+#     n_iterations: 50
+#     n_initial: 10  # Random initialization points
+#     xi: 0.01  # Exploration parameter
+
+# # Training settings (for optimization phase)
+# training:
+#   max_epochs: 30  # During hyperparameter search
+#   early_stopping_patience: 10
+#   optimizer_type: "adam"
+
+# # Final retraining (after finding best params)
+# retraining:
+#   max_epochs: 100
+#   early_stopping_patience: 20
+
+# # Experiment settings
+# experiment:
+#   n_runs: 5  # Number of runs with different seeds
+#   base_seed: 42
+#   device: "cuda"  # Options: cuda, cpu
+#   num_workers: 4
+#   results_dir: "./results"
+#   save_models: true
+#   save_plots: true
+
+# # Visualization settings
+# visualization:
+#   plot_convergence: true
+#   plot_distributions: true
+#   plot_comparisons: true
+#   dpi: 150
+#   figsize: [10, 6]
+
+experiment:
+  n_runs: 3  # Multiple runs for statistical significance
+  device: "cuda"  # Use GPU for faster training
+  results_dir: "./results"
+  base_seed: 42
+  num_workers: 4  # Data loading workers (4 is good for GPU)
+  save_models: true
+  save_plots: true
+
+optimizers:
+  random_search:
+    enabled: true
+    # Baseline: 5000 total exploration epochs
+    # 25 trials × 200 epochs per trial = 5000 epochs
+    n_iterations: 25
+  
+  pso:
+    enabled: true
+    # Baseline: 5000 total exploration epochs
+    # 10 iterations × 10 particles × 50 epochs per particle = 5000 epochs
+    n_iterations: 10
+    population_size: 10
+    w: 0.7  # Inertia
+    c1: 1.5  # Cognitive parameter
+    c2: 1.5  # Social parameter
+  
+  bayesian:
+    enabled: false  # Disable for now
+    n_iterations: 50
+    n_initial: 10
+    xi: 0.01
+
+training:
+  # Exploration phase: epochs per candidate evaluation
+  # Random Search: 200 epochs × 25 trials = 5000 total epochs
+  # PSO: 50 epochs × 10 iterations × 10 particles = 5000 total epochs
+  max_epochs: 200  # Epochs per candidate for Random Search
+  # High patience for exploration: we want to use full budget to see differences
+  early_stopping_patience: 100  # Allow models to train longer to differentiate
+  optimizer_type: "adam"
+
+# PSO-specific training epochs (different from Random Search)
+pso_training:
+  max_epochs: 50  # Epochs per particle evaluation for PSO
+  # Proportionally lower patience for shorter training
+  early_stopping_patience: 30  # Still allow some training but prevent severe overfitting
+
+retraining:
+  # Exploitation phase: Retrain best config for maximum performance
+  # Baseline: 15,000-20,000 epochs
+  max_epochs: 15000  # Can be adjusted to 20000
+  early_stopping_patience: 50
+
+dataset:
+  name: "MNIST"
+  data_dir: "./data"
+  val_split: 0.1
+  test_split: 0.1
+
+model:
+  type: "MLP"
+  use_batchnorm: true
+  conv_channels: [32, 64]
+  fc_hidden: 128
+
+search_space:
+  learning_rate:
+    type: "float"
+    min: 0.0001
+    max: 0.01
+    scale: "log"
+  batch_size:
+    type: "int"
+    min: 32
+    max: 256
+    scale: "log"
+  hidden_size:
+    type: "int"
+    min: 64
+    max: 512
+    scale: "linear"
+  num_layers:
+    type: "int"
+    min: 1
+    max: 3
+    scale: "linear"
+  dropout:
+    type: "float"
+    min: 0.1
+    max: 0.5
+    scale: "linear"
+  weight_decay:
+    type: "float"
+    min: 0.00001
+    max: 0.001
+    scale: "log"
