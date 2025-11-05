@@ -43,7 +43,7 @@ class HyperparameterExperiment:
         else:
             print(f"✓ Using {self.device.upper()}")
         # Set seed
-        # Create results directory----
+        # Create results directory--------
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         self.results_dir = os.path.join(
             self.config['experiment']['results_dir'],
