@@ -82,7 +82,7 @@ All figures are generated at 300 DPI for publication use.
 
 ```bash
 # Clone repository
-git clone <your-repo-url>
+git clone https://github.com/Noman-Nom/PSO_and_RandomSearch-working
 cd hyperparameter_optimization_research
 
 # Create virtual environment (recommended)
